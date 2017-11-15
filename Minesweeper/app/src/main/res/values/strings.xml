@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Minesweeper</string>
+    <string name="MinesweeperGame">Minesweeper Game</string>
+    <string name="SoloGame">Solo Game</string>
+    <string name="TwoPlayers">2 Players</string>
+    <string name="scoreboard">Scoreboard</string>
+    <string name="introduza_o_seu_nome">Insert your name..</string>
+    <string name="mudar_foto">Change Photo</string>
+    <string name="creditos">Credits</string>
+    <string name="nome_jogador">Player name</string>
+    <string name="guardar">Save</string>
+
 </resources>
