@@ -30,6 +30,16 @@ public class MainActivity extends Activity {
         });
 
 
+        Button scoreboard = (Button) findViewById(R.id.btnHistorico);
+        scoreboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"A carregar historico..",Toast.LENGTH_SHORT);
+                Intent scoreB = new Intent(MainActivity.this, Scoreboard.class);
+                startActivity(scoreB);
+            }
+        });
+
         ImageButton definicoes = (ImageButton) findViewById(R.id.btnSettings);
         definicoes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,5 +49,7 @@ public class MainActivity extends Activity {
                 startActivity(intentDef);
             }
         });
+
+
     }
 }

@@ -2,31 +2,27 @@ package pt.isec.a21220683.minesweeper;
 
 import android.graphics.Bitmap;
 
-/**
- * Created by Dmytro Yaremyshyn on 15/11/2017.
- */
-
 public class Jogador {
 
-    int pontuacao;
+    int pts;
     String nome;
     Bitmap foto;
+    long id;
 
     public Jogador(){
-        this.nome = "Jogador1";
-        this.pontuacao = 0;
+        this.pts = 0;
     }
 
-    public void setPontuacao(int pontuacao) {
-        this.pontuacao = pontuacao;
+    public void setPontuacao(int pts) {
+        this.pts = pts;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public int getPontuacao() {
-        return pontuacao;
+    public int getPts() {
+        return pts;
     }
 
     public String getNome() {

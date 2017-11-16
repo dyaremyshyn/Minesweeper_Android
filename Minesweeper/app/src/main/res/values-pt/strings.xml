@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Minesweeper</string>
+    <string name="MinesweeperGame" translatable="false">Jogo Minesweeper</string>
+    <string name="SoloGame">Jogar Sozinho</string>
+    <string name="TwoPlayers">2 Jogadores</string>
+    <string name="scoreboard">Historico</string>
+    <string name="introduza_o_seu_nome">Introduza o seu nome..</string>
+    <string name="mudar_foto">Alterar Foto</string>
+    <string name="creditos">Creditos</string>
+    <string name="nome_jogador">Nome Jogador</string>
+    <string name="guardar">Guardar</string>
+</resources>

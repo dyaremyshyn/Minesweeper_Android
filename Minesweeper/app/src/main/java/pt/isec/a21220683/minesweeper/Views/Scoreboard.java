@@ -7,21 +7,27 @@ import android.widget.ListView;
 
 import java.util.List;
 
+import pt.isec.a21220683.minesweeper.DataBase.DataBaseManager;
 import pt.isec.a21220683.minesweeper.Jogador;
 import pt.isec.a21220683.minesweeper.R;
 import pt.isec.a21220683.minesweeper.ScoreboardAdapter;
 
 public class Scoreboard extends Activity {
 
-    private ListView lvPontuacoes;
     private ScoreboardAdapter adapter;
     private List<Jogador> jogadores;
-    //private MyHelper mySqlHelper;
-    //private DataBaseManagerImpl dbImp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
+
+        ListView lvPts = findViewById(R.id.listview);
+        DataBaseManager db = new DataBaseManager(this);
+
+        jogadores = db.getJogador();
+        adapter = new ScoreboardAdapter(this,jogadores);
+        lvPts.setAdapter(adapter);
     }
+
 }

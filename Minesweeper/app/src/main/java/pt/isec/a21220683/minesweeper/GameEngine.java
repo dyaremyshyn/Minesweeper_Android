@@ -1,9 +1,12 @@
 package pt.isec.a21220683.minesweeper;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
+import pt.isec.a21220683.minesweeper.DataBase.DataBaseManager;
 import pt.isec.a21220683.minesweeper.Util.Generator;
 import pt.isec.a21220683.minesweeper.Util.PrintGrid;
 import pt.isec.a21220683.minesweeper.grid.Cell;
@@ -14,6 +17,7 @@ import pt.isec.a21220683.minesweeper.grid.Cell;
 
 public class GameEngine {
     private static GameEngine instance;
+    private Jogador jogador;
 
     public static final int BOMB_NUMBER = 10;
     public static final int WIDTH = 10;
@@ -40,6 +44,8 @@ public class GameEngine {
         int[][] GeneratedGrid = Generator.generate(BOMB_NUMBER,WIDTH, HEIGHT);
         PrintGrid.print(GeneratedGrid,WIDTH,HEIGHT);
         setGrid(context,GeneratedGrid);
+        jogador = new Jogador();
+
     }
 
     private void setGrid( final Context context, final int[][] grid ){
@@ -82,6 +88,9 @@ public class GameEngine {
             if( getCellAt(x,y).isBomb() ){
                 onGameLost();
             }
+
+            jogador.setPontuacao(jogador.getPts()+1);
+            Log.e("Pontuacao","PTS: "+jogador.getPts());
         }
 
         checkEnd();
@@ -103,7 +112,7 @@ public class GameEngine {
         }
 
         if( bombNotFound == 0 && notRevealed == 0 ){
-            Toast.makeText(context,"Game won", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"Game won! \n"+jogador.getPts()+" PTS", Toast.LENGTH_LONG).show();
         }
         return false;
     }
@@ -116,12 +125,25 @@ public class GameEngine {
 
     private void onGameLost(){
         // handle lost game
-        Toast.makeText(context,"Game lost", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context,"Game lost \n"+jogador.getPts()+" PTS", Toast.LENGTH_SHORT).show();
 
         for ( int x = 0 ; x < WIDTH ; x++ ) {
             for (int y = 0; y < HEIGHT; y++) {
                 getCellAt(x,y).setRevealed();
             }
         }
+
+        //save on SQLite
+        DataBaseManager db = new DataBaseManager(context);
+        //jogador.setNome("antonio");
+        jogador.setNome(getNomeSP());
+        db.insertJogador(jogador);
+
     }
+
+    public String getNomeSP(){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("NomeJogador",Context.MODE_PRIVATE);
+        return sharedPreferences.getString("nome","");
+    }
+
 }
