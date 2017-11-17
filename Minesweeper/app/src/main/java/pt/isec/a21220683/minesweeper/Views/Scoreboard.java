@@ -28,6 +28,9 @@ public class Scoreboard extends Activity {
         jogadores = db.getJogador();
         adapter = new ScoreboardAdapter(this,jogadores);
         lvPts.setAdapter(adapter);
+
     }
+
+
 
 }

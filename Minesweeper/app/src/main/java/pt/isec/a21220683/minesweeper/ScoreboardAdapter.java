@@ -1,6 +1,8 @@
 package pt.isec.a21220683.minesweeper;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.List;
+
+import pt.isec.a21220683.minesweeper.DataBase.DataBaseManager;
 
 /**
  * Created by Dmytro Yaremyshyn on 15/11/2017.
@@ -39,13 +43,39 @@ public class ScoreboardAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         if (view == null ){
             view = LayoutInflater.from(mContext).inflate(R.layout.score,viewGroup,false);
         }
-        //View v = View.inflate(mContext, R.layout.score,null);
 
-        Jogador jogador = (Jogador) getItem(i);
+       final Jogador jogador = (Jogador) getItem(i);
+
+        view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                new AlertDialog.Builder(mContext)
+                        .setTitle("Delete Score?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int ii) {
+                                mListaJogadores.remove(i);
+                                notifyDataSetChanged();
+                                DataBaseManager db = new DataBaseManager(mContext);
+                                db.deleteJogador(jogador.getId());
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null)/*new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })*/
+                        .show();
+                return false;
+            }
+        });
+
+
         TextView tvNome = (TextView) view.findViewById(R.id.tv_nome);
         TextView tvPontuacao = (TextView) view.findViewById(R.id.tv_pontuacao);
 
@@ -54,4 +84,6 @@ public class ScoreboardAdapter extends BaseAdapter {
 
         return view;
     }
+
+
 }

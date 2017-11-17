@@ -19,6 +19,7 @@ public class DataBaseManager {
     public final static String TABELA_JOGADOR = "jogador";
     public final static String JOGADOR_NOME = "nome";
     public final static String JOGADOR_PTS = "pts";
+    public final static String JOGADOR_ID = "id";
     public final static String JOGADOR_FOTO = "foto";
 
     private DBHelper helper;
@@ -71,6 +72,7 @@ public class DataBaseManager {
 
                 jogador.setNome(cursor.getString(cursor.getColumnIndex(JOGADOR_NOME)));
                 jogador.setPontuacao(cursor.getInt(cursor.getColumnIndex(JOGADOR_PTS)));
+                jogador.setId(cursor.getLong(cursor.getColumnIndex(JOGADOR_ID)));
                 //TODO: FOTO
 
                 jogadores.add(jogador);
@@ -86,6 +88,28 @@ public class DataBaseManager {
         }
 
         return jogadores;
+    }
+
+
+    public int deleteJogador(long id){
+        SQLiteDatabase db = helper.getWritableDatabase();
+        int linhasAfetadas = 0;
+
+        db.beginTransaction();
+
+        try{
+
+            linhasAfetadas = db.delete(TABELA_JOGADOR,JOGADOR_ID + " = ?", new String[]{ Long.toString(id)});
+
+            db.setTransactionSuccessful();
+        }catch(Exception e){
+            Log.e("DataBaseManager","Erro ao remover jogador!!");
+        }finally{
+            db.endTransaction();
+            db.close();
+        }
+
+        return linhasAfetadas;
     }
 
 }

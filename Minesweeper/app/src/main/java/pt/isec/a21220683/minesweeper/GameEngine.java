@@ -133,9 +133,8 @@ public class GameEngine {
             }
         }
 
-        //save on SQLite
+        //save in SQLite
         DataBaseManager db = new DataBaseManager(context);
-        //jogador.setNome("antonio");
         jogador.setNome(getNomeSP());
         db.insertJogador(jogador);
 
